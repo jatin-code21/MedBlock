@@ -13,7 +13,7 @@ function App() {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const provider = new ethers.providers.Web3Provider(window.ethereum); // use to read the content
 
     const loadProvider = async () => {
       if (provider) {
@@ -25,10 +25,10 @@ function App() {
           window.location.reload();
         });
         await provider.send("eth_requestAccounts", []);
-        const signer = provider.getSigner();
+        const signer = provider.getSigner(); // use to write the content
         const address = await signer.getAddress();
         setAccount(address);
-        let contractAddress = "Your Contract Address Here";
+        let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // had to change this everytime when you restart the local blockchain
 
         const contract = new ethers.Contract(
           contractAddress,
@@ -56,7 +56,7 @@ function App() {
       )}
 
       <div className="App">
-        <h1 style={{ color: "white" }}>Gdrive 3.0</h1>
+        <h1 style={{ color: "white" }}>MedBlock- Decentralised based Hospital Management System</h1>
         <div class="bg"></div>
         <div class="bg bg2"></div>
         <div class="bg bg3"></div>
