@@ -7,13 +7,13 @@ import Modal from "./components/Modal";
 import "./App.css";
 
 function App() {
-  const [account, setAccount] = useState("");
+  const [account, setAccount] = useState(""); // address of currently connected account
   const [contract, setContract] = useState(null);
   const [provider, setProvider] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum); // use to read the content
+    const provider = new ethers.providers.Web3Provider(window.ethereum); // use to only read the content from blockchain
 
     const loadProvider = async () => {
       if (provider) {
@@ -24,7 +24,7 @@ function App() {
         window.ethereum.on("accountsChanged", () => {
           window.location.reload();
         });
-        await provider.send("eth_requestAccounts", []);
+        await provider.send("eth_requestAccounts", []); // as soon as page loads, metamask will be opened
         const signer = provider.getSigner(); // use to write the content
         const address = await signer.getAddress();
         setAccount(address);
@@ -39,6 +39,7 @@ function App() {
         setContract(contract);
         setProvider(provider);
       } else {
+        alert("Metamask is not installed");
         console.error("Metamask is not installed");
       }
     };
@@ -56,7 +57,9 @@ function App() {
       )}
 
       <div className="App">
-        <h1 style={{ color: "white" }}>MedBlock- Decentralised based Hospital Management System</h1>
+        <h1 style={{ color: "white" }}>
+          MedBlock- Decentralised Hospital Management System
+        </h1>
         <div class="bg"></div>
         <div class="bg bg2"></div>
         <div class="bg bg3"></div>
