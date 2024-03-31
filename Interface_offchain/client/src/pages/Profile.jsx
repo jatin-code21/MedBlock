@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loading from "../components/Loading";
 import fetchData from "../helper/apiCall";
 import jwt_decode from "jwt-decode";
+import Navbar from '../components/Navbar.jsx'
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -116,21 +117,15 @@ function Profile() {
 
   return (
     <>
+      <Navbar />
       {loading ? (
         <Loading />
       ) : (
         <section className="register-section flex-center">
           <div className="profile-container flex-center">
             <h2 className="form-heading">Profile</h2>
-            <img
-              src={file}
-              alt="profile"
-              className="profile-pic"
-            />
-            <form
-              onSubmit={formSubmit}
-              className="register-form"
-            >
+            <img src={file} alt="profile" className="profile-pic" />
+            <form onSubmit={formSubmit} className="register-form">
               <div className="form-same-row">
                 <input
                   type="text"
@@ -215,10 +210,7 @@ function Profile() {
                   onChange={inputChange}
                 />
               </div>
-              <button
-                type="submit"
-                className="btn form-btn"
-              >
+              <button type="submit" className="btn form-btn">
                 update
               </button>
             </form>
