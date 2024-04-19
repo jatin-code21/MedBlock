@@ -25,20 +25,32 @@ const getallusers = async (req, res) => {
 };
 
 const login = async (req, res) => {
+  const {walletAddress, email} = req.body;
   try {
-    const emailPresent = await User.findOne({ email: req.body.email });
-    if (!emailPresent) {
+    const user = await User.findOne({ email: req.body.email });
+    if (!user) {
       return res.status(400).send("Incorrect credentials");
     }
     const verifyPass = await bcrypt.compare(
       req.body.password,
-      emailPresent.password
+      user.password
     );
     if (!verifyPass) {
       return res.status(400).send("Incorrect credentials");
     }
+    if (user.walletAddress && user.walletAddress !== walletAddress) 
+    {
+      return res.status(401).send("Please connect with the registered wallet account.");
+    } else if (!user.walletAddress){
+      user.walletAddress = walletAddress;
+      await user.save();
+      return res.status(200).send("Wallet address added successfully");
+    } 
+    else{
+      console.log("Correct wallet address is connected");
+    }
     const token = jwt.sign(
-      { userId: emailPresent._id, isAdmin: emailPresent.isAdmin },
+      { userId: user._id, isAdmin: user.isAdmin },
       process.env.JWT_SECRET,
       {
         expiresIn: "2 days",
@@ -53,11 +65,18 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   try {
     const emailPresent = await User.findOne({ email: req.body.email });
+    const walletAddress = await User.findOne({walletAddress: req.body.walletAddress})
+    const metaAddress = req.body.walletAddress
     if (emailPresent) {
       return res.status(400).send("Email already exists");
     }
+    if (walletAddress)
+    {
+      alert("Connect with another metamask account")
+      return res.status(400).send("Wallet address already exists");
+    }
     const hashedPass = await bcrypt.hash(req.body.password, 10);
-    const user = await User({ ...req.body, password: hashedPass });
+    const user = await User({ ...req.body, password: hashedPass, walletAddress: metaAddress});
     const result = await user.save();
     if (!result) {
       return res.status(500).send("Unable to register user");

@@ -55,6 +55,10 @@ const schema = mongoose.Schema(
       default:
         "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     },
+    walletAddress:{
+      type: String,
+      default: ""
+    }
   },
   {
     timestamps: true,
