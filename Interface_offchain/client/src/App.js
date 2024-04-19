@@ -14,6 +14,7 @@ const Doctors = lazy(() => import("./pages/Doctors"));
 const Profile = lazy(() => import("./pages/Profile"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const ApplyDoctor = lazy(() => import("./pages/ApplyDoctor"));
+const EnterUserDetails = lazy(() => import("./pages/EnterUserDetails"));
 const Error = lazy(() => import("./pages/Error"));
 
 function App() {
@@ -22,10 +23,7 @@ function App() {
       <Toaster />
       <Suspense fallback={<Loading />}>
         <Routes>
-          <Route
-            path="/login"
-            element={<Login />}
-          />
+          <Route path="/login" element={<Login />} />
           <Route
             path="/register"
             element={
@@ -34,14 +32,8 @@ function App() {
               </Public>
             }
           />
-          <Route
-            path="/"
-            element={<Home />}
-          />
-          <Route
-            path="/doctors"
-            element={<Doctors />}
-          />
+          <Route path="/" element={<Home />} />
+          <Route path="/doctors" element={<Doctors />} />
           <Route
             path="/appointments"
             element={
@@ -106,10 +98,8 @@ function App() {
               </Protected>
             }
           />
-          <Route
-            path="*"
-            element={<Error />}
-          />
+          <Route path="/enterUserDetails" element={<Protected> <EnterUserDetails /> </Protected>} />
+          <Route path="*" element={<Error />} />
         </Routes>
       </Suspense>
     </Router>

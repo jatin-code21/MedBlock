@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {ethers} from "ethers";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/register.css";
 import axios from "axios";
@@ -36,10 +37,17 @@ function Login() {
         return toast.error("Password must be at least 5 characters long");
       }
 
+      await window.ethereum.request({ method: "eth_requestAccounts" })
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      let walletAddress = await signer.getAddress();
+      walletAddress = walletAddress.toString()
+      console.log(walletAddress)
       const { data } = await toast.promise(
         axios.post("/user/login", {
           email,
           password,
+          walletAddress
         }),
         {
           pending: "Logging in...",
@@ -52,6 +60,8 @@ function Login() {
       dispatch(setUserInfo(jwt_decode(data.token).userId));
       getUser(jwt_decode(data.token).userId);
     } catch (error) {
+      console.log(error)
+      toast.error("Metamask connect failed or was refused")
       return error;
     }
   };

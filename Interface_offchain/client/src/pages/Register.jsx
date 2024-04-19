@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { ethers } from "ethers";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/register.css";
 import axios from "axios";
@@ -68,7 +69,13 @@ function Register() {
       } else if (password !== confpassword) {
         return toast.error("Passwords do not match");
       }
-
+      console.log("before metamask")
+      await window.ethereum.request({ method: "eth_requestAccounts" })
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      let walletAddress = await signer.getAddress();
+      walletAddress = walletAddress.toString()
+      console.log("After metamask")
       await toast.promise(
         axios.post("/user/register", {
           firstname,
@@ -76,6 +83,7 @@ function Register() {
           email,
           password,
           pic: file,
+          walletAddress
         }),
         {
           pending: "Registering user...",
@@ -93,7 +101,7 @@ function Register() {
       <div className="register-container flex-center">
         <h2 className="form-heading">Sign Up</h2>
         <form onSubmit={formSubmit} className="register-form">
-          <input
+          <input          
             type="text"
             name="firstname"
             className="form-input"
