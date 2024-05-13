@@ -50,7 +50,7 @@ const login = async (req, res) => {
       console.log("Correct wallet address is connected");
     }
     const token = jwt.sign(
-      { userId: user._id, isAdmin: user.isAdmin },
+      { userId: user._id, isAdmin: user.isAdmin, isDoctor: user.isDoctor},
       process.env.JWT_SECRET,
       {
         expiresIn: "2 days",
