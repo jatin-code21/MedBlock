@@ -42,7 +42,7 @@ const HomeCircles = () => {
         <span className="circle-name">
           Verified
           <br />
-          Doctors
+          Hospitals
         </span>
       </div>
       <div className="circle">
@@ -62,7 +62,7 @@ const HomeCircles = () => {
         <span className="circle-name">
           Specialist
           <br />
-          Doctors
+          Hospitals
         </span>
       </div>
     </section>

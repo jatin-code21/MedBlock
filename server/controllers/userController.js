@@ -29,19 +29,23 @@ const login = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-      return res.status(400).send("Incorrect credentials");
+      return res.status(400).send("Incorrect email credentials");
     }
     const verifyPass = await bcrypt.compare(
       req.body.password,
       user.password
     );
     if (!verifyPass) {
-      return res.status(400).send("Incorrect credentials");
+      return res.status(400).send("Incorrect password credentials");
     }
     if (user.walletAddress && user.walletAddress !== walletAddress) 
     {
       return res.status(401).send("Please connect with the registered wallet account.");
     } else if (!user.walletAddress){
+      const userExist = await User.findOne({walletAddress: walletAddress});
+      if(userExist){
+        return res.status(400).send("Wallet address already exists");
+      }
       user.walletAddress = walletAddress;
       await user.save();
       return res.status(200).send("Wallet address added successfully");
@@ -63,20 +67,21 @@ const login = async (req, res) => {
 };
 
 const register = async (req, res) => {
+  const {email, password} = req.body;
   try {
-    const emailPresent = await User.findOne({ email: req.body.email });
-    const walletAddress = await User.findOne({walletAddress: req.body.walletAddress})
-    const metaAddress = req.body.walletAddress
+    const emailPresent = await User.findOne({ email: email });
+    // const walletAddress = await User.findOne({walletAddress: req.body.walletAddress})
+    // const metaAddress = req.body.walletAddress
     if (emailPresent) {
       return res.status(400).send("Email already exists");
     }
-    if (walletAddress)
-    {
-      alert("Connect with another metamask account")
-      return res.status(400).send("Wallet address already exists");
-    }
-    const hashedPass = await bcrypt.hash(req.body.password, 10);
-    const user = await User({ ...req.body, password: hashedPass, walletAddress: metaAddress});
+    // if (walletAddress)
+    // {
+    //   alert("Connect with another metamask account")
+    //   return res.status(400).send("Wallet address already exists");
+    // }
+    const hashedPass = await bcrypt.hash(password, 10);
+    const user = await User({ ...req.body, password: hashedPass});
     const result = await user.save();
     if (!result) {
       return res.status(500).send("Unable to register user");

@@ -69,13 +69,13 @@ function EnterUserDetails() {
       } else if (password !== confpassword) {
         return toast.error("Passwords do not match");
       }
-      console.log("before metamask")
-      await window.ethereum.request({ method: "eth_requestAccounts" })
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-      let walletAddress = await signer.getAddress();
-      walletAddress = walletAddress.toString()
-      console.log("After metamask")
+      // console.log("before metamask")
+      // await window.ethereum.request({ method: "eth_requestAccounts" })
+      // const provider = new ethers.BrowserProvider(window.ethereum);
+      // const signer = await provider.getSigner();
+      // let walletAddress = await signer.getAddress();
+      // walletAddress = walletAddress.toString()
+      // console.log("After metamask")
       await toast.promise(
         axios.post("/user/register", {
           firstname,
@@ -83,7 +83,6 @@ function EnterUserDetails() {
           email,
           password,
           pic: file,
-          walletAddress
         }),
         {
           pending: "Registering user...",
