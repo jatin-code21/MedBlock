@@ -36,7 +36,7 @@ const Navbar = () => {
             <NavLink to={"/"}>Home</NavLink>
           </li>
           <li>
-            <NavLink to={"/doctors"}>Doctors</NavLink>
+            <NavLink to={"/doctors"}>Hospitals</NavLink>
           </li>
           { token && user.isDoctor && (
             <li>
