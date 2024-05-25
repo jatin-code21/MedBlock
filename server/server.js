@@ -5,6 +5,7 @@ require("./db/conn");
 const userRouter = require("./routes/userRoutes");
 const doctorRouter = require("./routes/doctorRoutes");
 const appointRouter = require("./routes/appointRoutes");
+const recordsRouter = require("./routes/recordsRoutes");
 const path = require("path");
 const notificationRouter = require("./routes/notificationRouter");
 
@@ -18,6 +19,7 @@ app.use("/user", userRouter);
 app.use("/doctor", doctorRouter);
 app.use("/appointment", appointRouter);
 app.use("/notification", notificationRouter);
+app.use("/records", recordsRouter);
 app.use(express.static(path.join(__dirname, "./client/build")));
 
 app.get("*", (req, res) => {

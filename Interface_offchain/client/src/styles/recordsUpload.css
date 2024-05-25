@@ -1,0 +1,129 @@
+.pageName{
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.top {
+    margin: auto auto;
+    width: 90%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    box-sizing: border-box;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .choose {
+    background-color: #5151E5;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .choose:hover {
+    background-color: #3B3BBE;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+  
+  .textArea {
+    margin-top: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .upload {
+    margin-top: 20px;
+    background-color: #72EDF2;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload:hover {
+    background-color: #56C7D8;
+  }
+  
+  .upload:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .top {
+      width: 90%;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .top {
+      width: 95%;
+    }
+  }
+
+/* .top {
+    margin: 40px;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+  
+  .choose {
+    background-color: initial;
+    background-image: linear-gradient(-180deg, #5aff15, #00b712);
+    border-radius: 6px;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-right: 10px;
+    padding-bottom: 10px;
+  }
+  .choose:hover {
+    box-shadow: rgba(253, 76, 0, 0.5) 0 3px 8px;
+  }
+  .textArea {
+    color: #000000;
+  }
+  
+  .upload {
+    border: 1px solid #13aa52;
+    background-color: #13aa52;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin-left: 10px;
+  }
+  
+  .upload:hover {
+    border: 1px solid #13aa52;
+    background-color: #a5efc1;
+    color: #ffffff;
+    padding: 5px 10px;
+  }
+  
+  .upload:disabled,
+  .upload[disabled] {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+  }
+  
+  div {
+    padding: 5px 10px;
+  }
+   */
