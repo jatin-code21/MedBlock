@@ -1,3 +1,6 @@
+import Upload from "./artifacts/contracts/Upload.sol/Upload.json";
+import { useState, useEffect } from "react";
+import { ethers } from "ethers";
 import "./styles/app.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
@@ -16,8 +19,51 @@ const Notifications = lazy(() => import("./pages/Notifications"));
 const ApplyDoctor = lazy(() => import("./pages/ApplyDoctor"));
 const EnterUserDetails = lazy(() => import("./pages/EnterUserDetails"));
 const Error = lazy(() => import("./pages/Error"));
+const RecordsUpload = lazy(() => import("./pages/RecordsUpload"));
 
 function App() {
+  const [account, setAccount] = useState(""); // address of currently connected account
+  const [contract, setContract] = useState(null);
+  const [provider, setProvider] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    const provider = new ethers.BrowserProvider(window.ethereum); // use to only read the content from blockchain
+
+    const loadProvider = async () => {
+      if (provider) {
+        window.ethereum.on("chainChanged", () => {
+          window.location.reload();
+        });
+
+        window.ethereum.on("accountsChanged", () => {
+          window.location.reload();
+        });
+        await provider.send("eth_requestAccounts", []); // as soon as page loads, metamask will be opened
+        const signer = await provider.getSigner(); // use to write the content
+        // console.log('before address')
+        const address = await signer.getAddress();
+        // console.log('after address')
+        setAccount(address);
+        // console.log('after setting address')
+        let contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"; // had to change this everytime when you restart the local blockchain
+
+        const contract = new ethers.Contract(
+          contractAddress,
+          Upload.abi,
+          signer
+        );
+        //console.log(contract);
+        setContract(contract);
+        setProvider(provider);
+      } else {
+        alert("Metamask is not installed");
+        console.error("Metamask is not installed");
+      }
+    };
+    provider && loadProvider();
+  }, []);
+
   return (
     <Router>
       <Toaster />
@@ -47,6 +93,14 @@ function App() {
             element={
               <Protected>
                 <Notifications />
+              </Protected>
+            }
+          />
+          <Route
+            path="/records"
+            element={
+              <Protected>
+                <RecordsUpload contract={contract} account={account} provider={provider} />
               </Protected>
             }
           />
@@ -98,7 +152,15 @@ function App() {
               </Protected>
             }
           />
-          <Route path="/enterUserDetails" element={<Protected> <EnterUserDetails /> </Protected>} />
+          <Route
+            path="/enterUserDetails"
+            element={
+              <Protected>
+                {" "}
+                <EnterUserDetails />{" "}
+              </Protected>
+            }
+          />
           <Route path="*" element={<Error />} />
         </Routes>
       </Suspense>
