@@ -75,6 +75,40 @@
     }
   }
 
+  .shareButton {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .share {
+    background-color: #5151E5;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .share:hover {
+    background-color: #3B3BBE;
+    transform: translateY(-2px);
+  }
+  
+  .share:active {
+    background-color: #2A2A9B;
+    transform: translateY(0);
+  }
+  
+  .share:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  }
+
+
 /* .top {
     margin: 40px;
   }

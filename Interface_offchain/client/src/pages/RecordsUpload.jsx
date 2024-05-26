@@ -1,11 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
 import Navabar from "../components/Navbar";
+import Modal from "../components/Modal";
+import DataDisplay from "../components/DataDisplay";
 import "../styles/recordsUpload.css";
 const RecordsUpload = ({ contract, account, provider }) => {
-  console.log(account)
+  console.log(account);
   const [file, setFile] = useState(null);
   const [fileName, setFileName] = useState("No record selected");
+  const [modalOpen, setModalOpen] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
@@ -72,6 +75,17 @@ const RecordsUpload = ({ contract, account, provider }) => {
           </button>
         </form>
       </div>
+      <div className="shareButton">
+        {!modalOpen && (
+          <button className="share" onClick={() => setModalOpen(true)}>
+            Share with Different Address/User
+          </button>
+        )}
+        {modalOpen && (
+          <Modal setModalOpen={setModalOpen} contract={contract}></Modal>
+        )}
+      </div>
+      <DataDisplay contract={contract} account={account}></DataDisplay>
     </>
   );
 };
