@@ -17,17 +17,21 @@ function Register() {
     email: "",
     password: "",
     confpassword: "",
+    questionResponse: "",
   });
   const navigate = useNavigate();
 
   const inputChange = (e) => {
     const { name, value } = e.target;
+    let finalValue = value;
+    if (name === "questionResponse") {
+      finalValue = value ==="yes"
+    }
     return setFormDetails({
       ...formDetails,
-      [name]: value,
+      [name]: finalValue,
     });
   };
-
 
   const onUpload = async (element) => {
     setLoading(true);
@@ -52,9 +56,9 @@ function Register() {
   const formSubmit = async (e) => {
     try {
       e.preventDefault();
-      console.log('sign up button is clicked');
-      console.log('file:', file);
-      console.log(loading)
+      console.log("sign up button is clicked");
+      console.log("file:", file);
+      console.log(loading);
       if (loading) return;
       if (file === "") return;
       const { firstname, lastname, email, password, confpassword } =
@@ -84,6 +88,7 @@ function Register() {
           email,
           password,
           pic: file,
+          questionResponse: formDetails.questionResponse,
         }),
         {
           pending: "Registering user...",
@@ -98,75 +103,86 @@ function Register() {
 
   return (
     <>
-    <Navbar/>
-    <section className="register-section flex-center">
-      <div className="register-container flex-center">
-        <h2 className="form-heading">Sign Up</h2>
-        <form onSubmit={formSubmit} className="register-form">
-          <input          
-            type="text"
-            name="firstname"
-            className="form-input"
-            placeholder="Enter your first name"
-            value={formDetails.firstname}
-            onChange={inputChange}
-          />
-          <input
-            type="text"
-            name="lastname"
-            className="form-input"
-            placeholder="Enter your last name"
-            value={formDetails.lastname}
-            onChange={inputChange}
-          />
-          <input
-            type="email"
-            name="email"
-            className="form-input"
-            placeholder="Enter your email"
-            value={formDetails.email}
-            onChange={inputChange}
-          />
-          <input
-            type="file"
-            onChange={(e) => onUpload(e.target.files[0])}
-            name="profile-pic"
-            id="profile-pic"
-            className="form-input"
-          />
-          <input
-            type="password"
-            name="password"
-            className="form-input"
-            placeholder="Enter your password"
-            value={formDetails.password}
-            onChange={inputChange}
-          />
-          <input
-            type="password"
-            name="confpassword"
-            className="form-input"
-            placeholder="Confirm your password"
-            value={formDetails.confpassword}
-            onChange={inputChange}
-          />
-          <button
-            type="submit"
-            className="btn form-btn"
-            disabled={loading ? true : false}
-            // disabled={true}
-          >
-            sign up
-          </button>
-        </form>
-        <p>
-          Already a user?{" "}
-          <NavLink className="login-link" to={"/login"}>
-            Log in
-          </NavLink>
-        </p>
-      </div>
-    </section>
+      <Navbar />
+      <section className="register-section flex-center">
+        <div className="register-container flex-center">
+          <h2 className="form-heading">Sign Up</h2>
+          <form onSubmit={formSubmit} className="register-form">
+            <input
+              type="text"
+              name="firstname"
+              className="form-input"
+              placeholder="Enter your first name"
+              value={formDetails.firstname}
+              onChange={inputChange}
+            />
+            <input
+              type="text"
+              name="lastname"
+              className="form-input"
+              placeholder="Enter your last name"
+              value={formDetails.lastname}
+              onChange={inputChange}
+            />
+            <input
+              type="email"
+              name="email"
+              className="form-input"
+              placeholder="Enter your email"
+              value={formDetails.email}
+              onChange={inputChange}
+            />
+            <input
+              type="file"
+              onChange={(e) => onUpload(e.target.files[0])}
+              name="profile-pic"
+              id="profile-pic"
+              className="form-input"
+            />
+            <input
+              type="password"
+              name="password"
+              className="form-input"
+              placeholder="Enter your password"
+              value={formDetails.password}
+              onChange={inputChange}
+            />
+            <input
+              type="password"
+              name="confpassword"
+              className="form-input"
+              placeholder="Confirm your password"
+              value={formDetails.confpassword}
+              onChange={inputChange}
+            />
+            <label>Are you a Hospital (Yes/No)</label>
+            <select
+              name="questionResponse"
+              value={formDetails.questionResponse}
+              onChange={inputChange}
+              className="form-input"
+            >
+              <option value="">Select an option</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            <button
+              type="submit"
+              className="btn form-btn"
+              disabled={loading ? true : false}
+              // disabled={true}
+            >
+              sign up
+            </button>
+          </form>
+          <p>
+            Already a user?{" "}
+            <NavLink className="login-link" to={"/login"}>
+              Log in
+            </NavLink>
+          </p>
+        </div>
+      </section>
     </>
   );
 }

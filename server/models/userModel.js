@@ -58,7 +58,11 @@ const schema = mongoose.Schema(
     walletAddress:{
       type: String,
       default: ""
-    }
+    },
+    questionResponse: {
+      type: Boolean,
+      required: true,
+    },
   },
   {
     timestamps: true,
