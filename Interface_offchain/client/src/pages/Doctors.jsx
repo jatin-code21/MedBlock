@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoading } from "../redux/reducers/rootSlice";
 import Empty from "../components/Empty";
 
-const Doctors = () => {
+const Doctors = ({contract}) => {
   const [doctors, setDoctors] = useState([]);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
@@ -31,7 +31,7 @@ const Doctors = () => {
       {loading && <Loading />}
       {!loading && (
         <section className="container doctors">
-          <h2 className="page-heading">Our Doctors</h2>
+          <h2 className="page-heading">Registered Hospitals</h2>
           {doctors.length > 0 ? (
             <div className="doctors-card-container">
               {doctors.map((ele) => {
@@ -39,6 +39,7 @@ const Doctors = () => {
                   <DoctorCard
                     ele={ele}
                     key={ele._id}
+                    contract={contract}
                   />
                 );
               })}

@@ -91,7 +91,7 @@ function EnterUserDetails() {
           loading: "Registering user...",
         }
       );
-      return navigate("/login");
+      // return navigate("/login");
     } catch (error) {}
   };
 

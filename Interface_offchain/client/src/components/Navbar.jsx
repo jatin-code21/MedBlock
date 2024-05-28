@@ -35,13 +35,15 @@ const Navbar = () => {
           <li>
             <NavLink to={"/"}>Home</NavLink>
           </li>
-          <li>
-            <NavLink to={"/doctors"}>Hospitals</NavLink>
-          </li>
-          { token && user.isDoctor && (
-            <li>
-              <NavLink to={"/enterUserDetails"}>Enter User Details</NavLink>
-            </li>
+          {token && user.isDoctor && (
+            <>
+              <li>
+                <NavLink to={"/enterUserDetails"}>Enter User Details</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/records"}>Records</NavLink>
+              </li>
+            </>
           )}
           {token && user.isAdmin && (
             <li>
@@ -50,6 +52,9 @@ const Navbar = () => {
           )}
           {token && !user.isAdmin && (
             <>
+              <li>
+                <NavLink to={"/doctors"}>Hospitals</NavLink>
+              </li>
               <li>
                 <NavLink to={"/appointments"}>Appointments</NavLink>
               </li>
@@ -73,28 +78,19 @@ const Navbar = () => {
           {!token ? (
             <>
               <li>
-                <NavLink
-                  className="btn"
-                  to={"/login"}
-                >
+                <NavLink className="btn" to={"/login"}>
                   Login
                 </NavLink>
               </li>
               <li>
-                <NavLink
-                  className="btn"
-                  to={"/register"}
-                >
+                <NavLink className="btn" to={"/register"}>
                   Register
                 </NavLink>
               </li>
             </>
           ) : (
             <li>
-              <span
-                className="btn"
-                onClick={logoutFunc}
-              >
+              <span className="btn" onClick={logoutFunc}>
                 Logout
               </span>
             </li>
