@@ -24,7 +24,6 @@ const Navbar = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
-
   return (
     <header>
       <nav className={iconActive ? "nav-active" : ""}>
@@ -50,7 +49,29 @@ const Navbar = () => {
               <NavLink to={"/dashboard/users"}>Dashboard</NavLink>
             </li>
           )}
-          {token && !user.isAdmin && (
+          {token && !user.isAdmin && !user.questionResponse && !user.isDoctor && (
+            <>
+              <li>
+                <NavLink to={"/doctors"}>Hospitals</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/notifications"}>Notifications</NavLink>
+              </li>
+              <li>
+                <NavLink to={"/appointments"}>Appointments</NavLink>
+              </li>
+              {/* <li>
+                <NavLink to={"/applyfordoctor"}>Apply for Hospital</NavLink>
+              </li> */}
+              <li>
+                <HashLink to={"/#contact"}>Contact Us</HashLink>
+              </li>
+              <li>
+                <NavLink to={"/profile"}>Profile</NavLink>
+              </li>
+            </>
+          )}
+          {token && !user.isAdmin && user.questionResponse && !user.isDoctor && (
             <>
               <li>
                 <NavLink to={"/doctors"}>Hospitals</NavLink>
@@ -64,9 +85,9 @@ const Navbar = () => {
               <li>
                 <NavLink to={"/notifications"}>Notifications</NavLink>
               </li>
-              {/* <li>
-                <NavLink to={"/applyfordoctor"}>Apply for doctor</NavLink>
-              </li> */}
+              <li>
+                <NavLink to={"/applyfordoctor"}>Apply for Hospital</NavLink>
+              </li>
               <li>
                 <HashLink to={"/#contact"}>Contact Us</HashLink>
               </li>
@@ -75,6 +96,7 @@ const Navbar = () => {
               </li>
             </>
           )}
+          
           {!token ? (
             <>
               <li>

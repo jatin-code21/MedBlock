@@ -60,7 +60,7 @@ const ApplyDoctor = () => {
         id="contact"
       >
         <div className="register-container flex-center contact">
-          <h2 className="form-heading">Apply for Doctor</h2>
+          <h2 className="form-heading">Apply for Hospital</h2>
           <form className="register-form ">
             <input
               type="text"
@@ -74,7 +74,7 @@ const ApplyDoctor = () => {
               type="number"
               name="experience"
               className="form-input"
-              placeholder="Enter your experience (in years)"
+              placeholder="Enter Year of Establishment"
               value={formDetails.experience}
               onChange={inputChange}
             />
@@ -82,7 +82,7 @@ const ApplyDoctor = () => {
               type="number"
               name="fees"
               className="form-input"
-              placeholder="Enter your fees  (in dollars)"
+              placeholder="Enter your fees  (in Rupees)"
               value={formDetails.fees}
               onChange={inputChange}
             />
