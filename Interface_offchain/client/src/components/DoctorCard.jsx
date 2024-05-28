@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import BookAppointment from "../components/BookAppointment";
 import { toast } from "react-hot-toast";
 
-const DoctorCard = ({ ele }) => {
+const DoctorCard = ({ ele, contract }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
@@ -26,18 +26,18 @@ const DoctorCard = ({ ele }) => {
         />
       </div>
       <h3 className="card-name">
-        Dr. {ele?.userId?.firstname + " " + ele?.userId?.lastname}
+        {ele?.userId?.firstname + " " + ele?.userId?.lastname}
       </h3>
       <p className="specialization">
         <strong>Specialization: </strong>
         {ele?.specialization}
       </p>
       <p className="experience">
-        <strong>Experience: </strong>
-        {ele?.experience}yrs
+        <strong>Established Year: </strong>
+        {ele?.experience}
       </p>
       <p className="fees">
-        <strong>Fees per consultation: </strong>$ {ele?.fees}
+        <strong>Fees per consultation: </strong>Rs. {ele?.fees}
       </p>
       <p className="phone">
         <strong>Phone: </strong>
@@ -53,6 +53,7 @@ const DoctorCard = ({ ele }) => {
         <BookAppointment
           setModalOpen={setModalOpen}
           ele={ele}
+          contract={contract}
         />
       )}
     </div>

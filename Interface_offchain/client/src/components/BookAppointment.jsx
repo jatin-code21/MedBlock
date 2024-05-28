@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "../styles/bookappointment.css";
+import ABI from "../artifacts/contracts/Upload.sol/Upload.json";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { IoMdClose } from "react-icons/io";
+import { ethers } from "ethers";
 
-const BookAppointment = ({ setModalOpen, ele }) => {
+const BookAppointment = ({ setModalOpen, ele, contract }) => {
   const [formDetails, setFormDetails] = useState({
     date: "",
     time: "",
@@ -20,7 +22,31 @@ const BookAppointment = ({ setModalOpen, ele }) => {
 
   const bookAppointment = async (e) => {
     e.preventDefault();
+    if (!window.ethereum) {
+      toast.error("Metamask is not installed");
+    }
+    const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
+    // const amountToSend = ethers.parseEther("0.01");
+    // const provider = new ethers.BrowserProvider(window.ethereum);
+    // const signer = provider.getSigner();
+    
     try {
+      // const txResponse = await signer.sendTransaction(tx);
+      // await provider.waitForTransaction(txResponse.hash);
+      console.log("check 1");
+      // await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = provider.getSigner();
+      const tx = {
+      to: contractAddress,
+      value: ethers.parseEther("0.01"),
+    }
+    console.log(tx)
+    // console.log('check 2')
+    // const transactionResponse = await signer.sendTransaction(tx);
+    // await provider.waitForTransaction(transactionResponse.hash);
+    // console.log('check 3')
+      // const contract = new ethers.Contract(contractAddress, abi, signer);
       await toast.promise(
         axios.post(
           "/appointment/bookappointment",

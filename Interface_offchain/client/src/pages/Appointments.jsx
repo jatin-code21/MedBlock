@@ -76,7 +76,7 @@ const Appointments = () => {
                 <thead>
                   <tr>
                     <th>S.No</th>
-                    <th>Doctor</th>
+                    <th>Hospital</th>
                     <th>Patient</th>
                     <th>Appointment Date</th>
                     <th>Appointment Time</th>
