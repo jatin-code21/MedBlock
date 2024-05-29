@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "../styles/register.css";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Navbar from "../components/Navbar";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -96,6 +97,8 @@ function EnterUserDetails() {
   };
 
   return (
+    <>
+    <Navbar/>
     <section className="register-section flex-center">
       <div className="register-container flex-center">
         <h2 className="form-heading">Enter the Patient Details</h2>
@@ -164,6 +167,7 @@ function EnterUserDetails() {
         </p>
       </div>
     </section>
+    </>
   );
 }
 

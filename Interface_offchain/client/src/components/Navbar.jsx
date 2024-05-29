@@ -60,6 +60,9 @@ const Navbar = () => {
               <li>
                 <NavLink to={"/appointments"}>Appointments</NavLink>
               </li>
+              <li>
+                <NavLink to={"/records"}>Records</NavLink>
+              </li>
               {/* <li>
                 <NavLink to={"/applyfordoctor"}>Apply for Hospital</NavLink>
               </li> */}

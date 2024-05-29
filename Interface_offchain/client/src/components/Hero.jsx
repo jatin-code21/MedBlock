@@ -11,9 +11,11 @@ const Hero = () => {
           Our Responsibility
         </h1>
         <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quibusdam
-          tenetur doloremque molestias repellat minus asperiores in aperiam
-          dolor, quaerat praesentium.
+          Welcome to MedBlock (HMS), where seamless communication between
+          patients and hospital is our top priority. With our user friendly
+          interface, you can easily book appointments, view your medical
+          history, and much more. experience the convience of modern healthcare 
+          management with us.
         </p>
       </div>
       <div className="hero-img">
